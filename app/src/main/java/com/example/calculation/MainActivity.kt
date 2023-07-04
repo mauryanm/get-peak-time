@@ -36,9 +36,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     val startDate: String = "2014-01-22 10:30:00"
-    val endDate: String = "2014-01-22 17:30:00"
-    val pts: String = "15:45:00"
-    val pte: String = "16:00:00"
+    val endDate: String = "2014-01-23 17:30:00"
+    val pts: String = "22:00:00"
+    val pte: String = "06:00:00"
     var nd = PeakTimer.getPeakTimeDetail(startDate,endDate,pts,pte).toString()
     val json = JSONObject(nd) // String instance holding the above json
     val peakTime = json.getInt("peak_time")

@@ -1,5 +1,7 @@
 package com.example.peaktimer;
 
+import android.util.Log;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -71,7 +73,7 @@ public class PeakTimer {
             pt.add(java.util.List.of("00:00:00", pte));
         }
 
-        int totalMinutes = 0;
+        double totalMinutes = 0;
         for (List<String> peakTime : pt) {
             LocalTime start = LocalTime.parse(peakTime.get(0));
             LocalTime end = LocalTime.parse(peakTime.get(1));
@@ -105,11 +107,14 @@ public class PeakTimer {
                     lastDay = (time2.compareTo(end) > 0) ? maxPerDay : (maxPerDay - Math.abs((int) Duration.between(time2, end).getSeconds()));
                 }
                 minutes = lastDay + firstDay + ((days - 1) * maxPerDay);
+//                if((LocalTime.parse("23:59:59")).compareTo(end)==0){
+//                    minutes = (minutes+1);
+//                }
             }
             totalMinutes += minutes;
         }
-        int peakTotal = (int) Math.ceil(totalMinutes/60);
-        int totalTripTime = (int) Math.ceil(Duration.between(startDateTime, endDateTime).getSeconds()/60);
+        int peakTotal = (int) Math.round(totalMinutes/60);
+        int totalTripTime = (int) Math.round(Duration.between(startDateTime, endDateTime).getSeconds()/60);
         Map<String, Integer> result = new HashMap<String, Integer>();
         result.put("peak_time", peakTotal);
         result.put("total_time", totalTripTime);
